@@ -1,0 +1,18 @@
+{
+  "directed": false,
+  "weighted": false,
+  "edges": [
+    {"from": "Alice", "to": "Bob"},
+    {"from": "Alice", "to": "Charlie"},
+    {"from": "Bob", "to": "David"},
+    {"from": "Bob", "to": "Eve"},
+    {"from": "Charlie", "to": "Frank"},
+    {"from": "Charlie", "to": "Grace"},
+    {"from": "David", "to": "Eve"},
+    {"from": "Eve", "to": "Frank"},
+    {"from": "Frank", "to": "Grace"},
+    {"from": "Grace", "to": "Henry"},
+    {"from": "David", "to": "Henry"},
+    {"from": "Alice", "to": "Grace"}
+  ]
+}
