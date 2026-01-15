@@ -5,18 +5,21 @@ Test script for Task 3: Algorithm of Choice
 DO NOT MODIFY THIS FILE
 
 Usage: 
-  For centrality: python test_task3.py -A <graph_file>
-  For community:  python test_task3.py -B <graph_file>
+  For centrality: python test_task3.py -A [-R] <graph_file>
+  For community:  python test_task3.py -B [-R] <graph_file>
+  -R: Run reference implementation and compare results
 
 Example: python test_task3.py -A data/social_graph.json
+         python test_task3.py -A -R data/social_graph.json
 """
 
 import sys
+import os
 from graph import load_graph
 from tasks.task3_choice import ALGORITHM_CHOICE, centralities, communities
 
 
-def test_centrality(graph, graph_file):
+def test_centrality(graph, graph_file, run_reference=False):
     """Test betweenness centrality algorithm."""
     print(f"Testing: Betweenness Centrality")
     print("-" * 60)
@@ -66,6 +69,43 @@ def test_centrality(graph, graph_file):
         most_central = sorted_vertices[0]
         print(f"Most central vertex: {most_central[0]} (centrality: {most_central[1]:.4f})")
         
+        # Run reference implementation if requested
+        if run_reference:
+            print()
+            print("=" * 60)
+            print("Running Reference Implementation")
+            print("=" * 60)
+            
+            try:
+                sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
+                from task3_reference_centrality import centralities as ref_centralities
+                
+                ref_result = ref_centralities(graph)
+                print("Reference Centrality Results:")
+                ref_sorted = sorted(ref_result.items(), key=lambda x: x[1], reverse=True)
+                for vertex, centrality in ref_sorted:
+                    print(f"  {vertex}: {centrality:.4f}")
+                
+                # Compare results
+                print()
+                all_match = True
+                for vertex in result:
+                    if abs(result[vertex] - ref_result[vertex]) > 0.0001:
+                        print(f"✗ MISMATCH for {vertex}: yours={result[vertex]:.4f}, reference={ref_result[vertex]:.4f}")
+                        all_match = False
+                
+                if all_match:
+                    print("✓ MATCH: All centrality values match the reference implementation")
+                else:
+                    return False
+                    
+            except ImportError as e:
+                print(f"WARNING: Could not load reference implementation: {e}")
+            except Exception as e:
+                print(f"ERROR in reference implementation: {type(e).__name__}: {e}")
+                import traceback
+                traceback.print_exc()
+        
         print()
         print("✓ Centrality test PASSED")
         return True
@@ -80,7 +120,7 @@ def test_centrality(graph, graph_file):
         return False
 
 
-def test_community_detection(graph, graph_file):
+def test_community_detection(graph, graph_file, run_reference=False):
     """Test community detection algorithm."""
     print(f"Testing: Community Detection")
     print("-" * 60)
@@ -146,6 +186,40 @@ def test_community_detection(graph, graph_file):
         print(f"  Largest community: {max(sizes)} vertices")
         print(f"  Smallest community: {min(sizes)} vertices")
         
+        # Run reference implementation if requested
+        if run_reference:
+            print()
+            print("=" * 60)
+            print("Running Reference Implementation")
+            print("=" * 60)
+            
+            try:
+                sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
+                from task3_reference_community import communities as ref_communities
+                
+                ref_result = ref_communities(graph)
+                print(f"Reference Number of Communities: {len(ref_result)}")
+                print()
+                
+                for i, community in enumerate(ref_result, 1):
+                    community_list = sorted(list(community))
+                    print(f"Reference Community {i} ({len(community_list)} vertices):")
+                    print(f"  {', '.join(community_list)}")
+                
+                print()
+                if len(result) == len(ref_result):
+                    print(f"✓ Same number of communities ({len(result)})")
+                else:
+                    print(f"Note: Different number of communities (yours: {len(result)}, reference: {len(ref_result)})")
+                    print("This is acceptable - community detection has multiple valid solutions")
+                    
+            except ImportError as e:
+                print(f"WARNING: Could not load reference implementation: {e}")
+            except Exception as e:
+                print(f"ERROR in reference implementation: {type(e).__name__}: {e}")
+                import traceback
+                traceback.print_exc()
+        
         print()
         print("✓ Community detection test PASSED")
         print("Note: There is no single 'correct' answer for community detection.")
@@ -162,13 +236,14 @@ def test_community_detection(graph, graph_file):
         return False
 
 
-def test_algorithm_choice(option, graph_file):
+def test_algorithm_choice(option, graph_file, run_reference=False):
     """
     Test the student's chosen algorithm.
     
     Args:
         option: "-A" for centrality, "-B" for community
         graph_file: Path to the graph file to test
+        run_reference: If True, also run reference implementation and compare
     """
     print(f"Testing Task 3: Algorithm of Choice")
     print(f"Graph file: {graph_file}")
@@ -196,9 +271,9 @@ def test_algorithm_choice(option, graph_file):
         
         # Test based on option
         if option == "-A":
-            return test_centrality(graph, graph_file)
+            return test_centrality(graph, graph_file, run_reference)
         elif option == "-B":
-            return test_community_detection(graph, graph_file)
+            return test_community_detection(graph, graph_file, run_reference)
         else:
             print(f"ERROR: Unknown option: {option}")
             print("Use -A for centrality or -B for community detection")
@@ -216,25 +291,39 @@ def test_algorithm_choice(option, graph_file):
 
 def main():
     """Main entry point."""
-    if len(sys.argv) != 3:
+    args = sys.argv[1:]
+    
+    if len(args) < 2 or len(args) > 3:
         print("Usage:")
-        print("  For centrality: python test_task3.py -A <graph_file>")
-        print("  For community:  python test_task3.py -B <graph_file>")
+        print("  For centrality: python test_task3.py -A [-R] <graph_file>")
+        print("  For community:  python test_task3.py -B [-R] <graph_file>")
+        print("  -R: Run reference implementation and compare results")
         print()
         print("Examples:")
         print("  python test_task3.py -A data/social_graph.json")
-        print("  python test_task3.py -B data/social_graph.json")
+        print("  python test_task3.py -B -R data/social_graph.json")
         sys.exit(1)
     
-    option = sys.argv[1]
-    graph_file = sys.argv[2]
+    option = args[0]
     
     if option not in ["-A", "-B"]:
         print(f"ERROR: Invalid option '{option}'")
         print("Use -A for centrality or -B for community detection")
         sys.exit(1)
     
-    success = test_algorithm_choice(option, graph_file)
+    # Check for -R flag
+    run_reference = False
+    if len(args) == 3:
+        if args[1] == "-R":
+            run_reference = True
+            graph_file = args[2]
+        else:
+            print(f"ERROR: Unknown flag '{args[1]}'")
+            sys.exit(1)
+    else:
+        graph_file = args[1]
+    
+    success = test_algorithm_choice(option, graph_file, run_reference)
     
     sys.exit(0 if success else 1)
 

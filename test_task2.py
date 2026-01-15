@@ -4,21 +4,26 @@ Test script for Task 2: Minimum Spanning Trees
 
 DO NOT MODIFY THIS FILE
 
-Usage: python test_task2.py <graph_file>
+Usage: python test_task2.py [-R] <graph_file>
+  -R: Run reference implementation and compare results
+
 Example: python test_task2.py data/weighted_graph.json
+         python test_task2.py -R data/weighted_graph.json
 """
 
 import sys
+import os
 from graph import load_graph
 from tasks.task2_mst import MST, second_best_ST
 
 
-def test_mst_algorithms(graph_file):
+def test_mst_algorithms(graph_file, run_reference=False):
     """
     Test MST and second-best spanning tree algorithms.
     
     Args:
         graph_file: Path to the graph file to test
+        run_reference: If True, also run reference implementation and compare
     """
     print(f"Testing Task 2: Minimum Spanning Trees")
     print(f"Graph file: {graph_file}")
@@ -74,6 +79,30 @@ def test_mst_algorithms(graph_file):
             print(f"\nTotal MST Weight: {total_weight}")
             print("✓ MST test PASSED")
             
+            # Run reference implementation if requested
+            if run_reference:
+                print()
+                print("Running Reference MST...")
+                try:
+                    sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
+                    from task2_reference import MST as ref_MST
+                    
+                    ref_mst = ref_MST(graph)
+                    ref_weight = sum(w for _, _, w in ref_mst)
+                    print(f"Reference MST Weight: {ref_weight}")
+                    
+                    # Compare weights (MST weight should be same)
+                    if abs(total_weight - ref_weight) < 0.0001:
+                        print("✓ MATCH: Your MST weight matches the reference")
+                    else:
+                        print(f"✗ MISMATCH: Your MST weight ({total_weight}) differs from reference ({ref_weight})")
+                        return False
+                        
+                except ImportError as e:
+                    print(f"WARNING: Could not load reference implementation: {e}")
+                except Exception as e:
+                    print(f"ERROR in reference implementation: {type(e).__name__}: {e}")
+            
         except ValueError as e:
             print(f"ERROR: ValueError - {e}")
             return False
@@ -120,6 +149,36 @@ def test_mst_algorithms(graph_file):
             
             print("✓ Second-best ST test PASSED")
             
+            # Run reference implementation if requested
+            if run_reference and second_st is not None:
+                print()
+                print("Running Reference Second-Best ST...")
+                try:
+                    if 'task2_reference' not in sys.modules:
+                        sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
+                        from task2_reference import second_best_ST as ref_second_best_ST
+                    else:
+                        from task2_reference import second_best_ST as ref_second_best_ST
+                    
+                    ref_second_st = ref_second_best_ST(graph)
+                    if ref_second_st:
+                        ref_weight_2 = sum(w for _, _, w in ref_second_st)
+                        print(f"Reference Second-Best ST Weight: {ref_weight_2}")
+                        
+                        # Compare weights
+                        if abs(total_weight_2 - ref_weight_2) < 0.0001:
+                            print("✓ MATCH: Your second-best ST weight matches the reference")
+                        else:
+                            print(f"✗ MISMATCH: Your weight ({total_weight_2}) differs from reference ({ref_weight_2})")
+                            print("Note: Multiple valid second-best STs may exist with the same weight")
+                    else:
+                        print("Reference also returned None")
+                        
+                except ImportError as e:
+                    print(f"WARNING: Could not load reference implementation: {e}")
+                except Exception as e:
+                    print(f"ERROR in reference implementation: {type(e).__name__}: {e}")
+            
         except ValueError as e:
             print(f"ERROR: ValueError - {e}")
             return False
@@ -145,13 +204,24 @@ def test_mst_algorithms(graph_file):
 
 def main():
     """Main entry point."""
-    if len(sys.argv) != 2:
-        print("Usage: python test_task2.py <graph_file>")
+    args = sys.argv[1:]
+    
+    # Check for -R flag
+    run_reference = False
+    if args and args[0] == "-R":
+        run_reference = True
+        args = args[1:]
+    
+    if len(args) != 1:
+        print("Usage: python test_task2.py [-R] <graph_file>")
+        print("  -R: Run reference implementation and compare results")
+        print()
         print("Example: python test_task2.py data/weighted_graph.json")
+        print("         python test_task2.py -R data/weighted_graph.json")
         sys.exit(1)
     
-    graph_file = sys.argv[1]
-    success = test_mst_algorithms(graph_file)
+    graph_file = args[0]
+    success = test_mst_algorithms(graph_file, run_reference)
     
     sys.exit(0 if success else 1)
 
