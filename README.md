@@ -28,7 +28,7 @@ This repository provides a complete testing and execution environment for graph 
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd GraphEdu
+cd graph-algorithms-testbench
 ```
 
 ### 2. No External Dependencies Required
