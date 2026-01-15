@@ -1,0 +1,13 @@
+{
+  "directed": false,
+  "weighted": false,
+  "blue": [
+    "B"
+  ],
+  "edges": [
+    {
+      "from": "A",
+      "to": "B"
+    }
+  ]
+}
