@@ -14,6 +14,10 @@ Implement two functions:
 You may implement Union-Find in this file or use the example from examples/union_find_example.py
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from graph import Graph
 from typing import List, Tuple, Optional
 

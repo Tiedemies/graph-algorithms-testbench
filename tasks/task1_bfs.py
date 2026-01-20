@@ -18,6 +18,10 @@ In other words:
 The graph will have a "blue" attribute on vertices (a set of vertex names).
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from graph import Graph
 from typing import Set
 
