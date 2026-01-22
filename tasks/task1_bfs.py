@@ -11,9 +11,8 @@ Given a graph where some vertices are marked as "blue", find a shortest path
 from s to t that goes through the maximum number of blue vertices.
 
 In other words:
-1. Find all shortest paths from s to t (paths with minimum number of edges)
-2. Among those shortest paths, return the maximum number of blue vertices
-   that can be visited on any single shortest path
+1.  Among the shortest paths from s to t one has the most number of blue vertices
+2.  Return that number of blue vertices.
 
 The graph will have a "blue" attribute on vertices (a set of vertex names).
 """
