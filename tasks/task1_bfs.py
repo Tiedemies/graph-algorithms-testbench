@@ -40,13 +40,11 @@ def max_blue_path(graph: Graph, s: str, t: str) -> int:
         
     Note:
         - Blue vertices are stored in graph.blue (a set)
-        - You need to find shortest paths first, then count blue vertices
-        - Only consider paths with minimum edge count (shortest paths)
+        - Find the shorts path(s) using (single) BFS
+        - Count blue vertices along the maximal blue shortest path. 
     """
-    # TODO: Implement maximal blue nodes on shortest paths
+    # TODO: Implement maximal blue nodes on shortest paths from s to t.
     # Hints:
-    # 1. Use BFS to find distance from s to all vertices
-    # 2. Use BFS from t to find distance to all vertices (reverse direction)
-    # 3. A vertex v is on a shortest path if dist[s][v] + dist[v][t] == dist[s][t]
-    # 4. Use dynamic programming or BFS to track max blue count along paths
+    # 1. Use BFS to find distance from s to all vertices.
+    # Figure out how to do it in one go. 
     pass
