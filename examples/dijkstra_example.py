@@ -7,6 +7,10 @@ Students should read this to understand how to use the Graph API.
 DO NOT COPY THIS CODE DIRECTLY INTO YOUR ASSIGNMENTS.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from graph import Graph
 import heapq
 

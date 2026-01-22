@@ -10,6 +10,10 @@ Union-Find is commonly used for:
 - Dynamic connectivity problems
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 
 class UnionFind:
     """
