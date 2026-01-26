@@ -7,18 +7,18 @@
 
 TASK 1: Shortest Paths with Maximal Blue Nodes
 
-Given a graph where some vertices are marked as "blue", find a shortest path
+Given a graph where some vertices are marked as "blue", find the shortest path
 from s to t that goes through the maximum number of blue vertices.
 
 In other words:
-1.  Among the shortest paths from s to t one has the most number of blue vertices
+1.  Among the shortest paths from s to t one has the highest number of blue vertices
 2.  Return that number of blue vertices.
 
 The graph will have a "blue" attribute on vertices (a set of vertex names).
 """
 
 from graph import Graph
-from typing import Set
+from collections import deque
 
 
 def max_blue_path(graph: Graph, s: str, t: str) -> int:
@@ -40,10 +40,48 @@ def max_blue_path(graph: Graph, s: str, t: str) -> int:
     Note:
         - Blue vertices are stored in graph.blue (a set)
         - Find the shorts path(s) using (single) BFS
-        - Count blue vertices along the maximal blue shortest path. 
+        - Count blue vertices along the maximal blue the shortest path.
     """
-    # TODO: Implement maximal blue nodes on shortest paths from s to t.
-    # Hints:
-    # 1. Use BFS to find distance from s to all vertices.
-    # Figure out how to do it in one go. 
-    pass
+
+    dist = {}
+    blue_count = {}
+    queue = deque([s])
+
+    dist[s] = 0
+    if s in graph.blue:
+        blue_count[s] = 1
+    else:
+        blue_count[s] = 0
+
+    while queue:
+        vertex = queue.popleft()
+        for v in graph.neighbors(vertex):
+            new_dist = dist[vertex] + 1
+            if v in graph.blue:
+                new_blue = blue_count[vertex] + 1
+            else:
+                new_blue = blue_count[vertex]
+
+            # Case 1: the vertex v hasn't been in dist
+            if v not in dist:
+                dist[v] = new_dist
+                blue_count[v] = new_blue
+                queue.append(v)
+
+            # Case 2: the new distance is smaller than the current distance
+            elif new_dist < dist[v]:
+                dist[v] = new_dist
+                blue_count[v] = new_blue
+                queue.append(v)
+
+            # Case 3: The distances are equal, but the new one has more
+            # blue vertices than the current one
+            elif new_dist == dist[v] and new_blue > blue_count[v]:
+                blue_count[v] = new_blue
+                queue.append(v)
+
+    if t in dist:
+        return blue_count[t]
+    else:
+        return 0
+
