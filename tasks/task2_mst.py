@@ -58,47 +58,15 @@ def second_best_ST(graph: Graph) -> Optional[List[Tuple[str, str, float]]]:
         ValueError: If graph is directed
         
     Hint:
-        One approach is to:
+        One MST algorithm works as follows:
         1. Find the MST
         2. For each edge NOT in MST, try adding it (creates a cycle)
         3. Remove the heaviest edge in that cycle (other than the added edge)
-        4. This gives a candidate spanning tree
-        5. Return the candidate with minimum weight
+        4. This gives a candidate spanning tree.
+        5. Return the candidate with minimum weight.
+
+        NOTE: This is just a hint, you may implement it differently.
+        NOTE: Naive implementations may be too slow for large graphs.
     """
     # TODO: Implement second-best spanning tree algorithm
     pass
-
-
-# ============================================
-# OPTIONAL: Union-Find Helper Class
-# You may implement Union-Find here or import from examples/
-# ============================================
-
-class UnionFind:
-    """
-    Union-Find (Disjoint Set Union) data structure.
-    
-    Optional helper for Kruskal's algorithm.
-    You may implement this or use the example from examples/union_find_example.py
-    """
-    
-    def __init__(self, vertices: List[str]):
-        """Initialize Union-Find structure with given vertices."""
-        # TODO: Implement initialization
-        pass
-    
-    def find(self, x: str) -> str:
-        """Find the root/representative of the set containing x."""
-        # TODO: Implement find with path compression
-        pass
-    
-    def union(self, x: str, y: str) -> bool:
-        """
-        Unite the sets containing x and y.
-        
-        Returns:
-            True if x and y were in different sets (union performed)
-            False if x and y were already in the same set
-        """
-        # TODO: Implement union with rank
-        pass

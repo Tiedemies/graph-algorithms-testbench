@@ -46,4 +46,4 @@ def max_blue_path(graph: Graph, s: str, t: str) -> int:
     # Hints:
     # 1. Use BFS to find distance from s to all vertices.
     # Figure out how to do it in one go. 
-    pass
+    return 0
