@@ -91,7 +91,5 @@ def communities(graph: Graph) -> List[Set[str]]:
     if ALGORITHM_CHOICE != "community":
         raise NotImplementedError(f"This function is not implemented. Current choice: {ALGORITHM_CHOICE}")
     
-    # TODO: Implement community detection
-    # Hint: Girvan-Newman is conceptually simple - iteratively remove edges
-    # with highest betweenness until communities emerge
+
     pass

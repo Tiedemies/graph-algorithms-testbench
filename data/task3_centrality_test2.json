@@ -1,0 +1,318 @@
+{
+  "directed": false,
+  "weighted": false,
+  "edges": [
+    {
+      "from": "v0",
+      "to": "v2"
+    },
+    {
+      "from": "v1",
+      "to": "v2"
+    },
+    {
+      "from": "v3",
+      "to": "v0"
+    },
+    {
+      "from": "v3",
+      "to": "v2"
+    },
+    {
+      "from": "v4",
+      "to": "v2"
+    },
+    {
+      "from": "v4",
+      "to": "v3"
+    },
+    {
+      "from": "v5",
+      "to": "v0"
+    },
+    {
+      "from": "v5",
+      "to": "v4"
+    },
+    {
+      "from": "v6",
+      "to": "v2"
+    },
+    {
+      "from": "v6",
+      "to": "v4"
+    },
+    {
+      "from": "v7",
+      "to": "v4"
+    },
+    {
+      "from": "v7",
+      "to": "v6"
+    },
+    {
+      "from": "v8",
+      "to": "v0"
+    },
+    {
+      "from": "v8",
+      "to": "v3"
+    },
+    {
+      "from": "v9",
+      "to": "v4"
+    },
+    {
+      "from": "v9",
+      "to": "v6"
+    },
+    {
+      "from": "v10",
+      "to": "v8"
+    },
+    {
+      "from": "v10",
+      "to": "v3"
+    },
+    {
+      "from": "v11",
+      "to": "v1"
+    },
+    {
+      "from": "v11",
+      "to": "v4"
+    },
+    {
+      "from": "v12",
+      "to": "v0"
+    },
+    {
+      "from": "v12",
+      "to": "v4"
+    },
+    {
+      "from": "v13",
+      "to": "v0"
+    },
+    {
+      "from": "v13",
+      "to": "v1"
+    },
+    {
+      "from": "v14",
+      "to": "v0"
+    },
+    {
+      "from": "v14",
+      "to": "v6"
+    },
+    {
+      "from": "v15",
+      "to": "v8"
+    },
+    {
+      "from": "v15",
+      "to": "v6"
+    },
+    {
+      "from": "v16",
+      "to": "v4"
+    },
+    {
+      "from": "v16",
+      "to": "v14"
+    },
+    {
+      "from": "v17",
+      "to": "v3"
+    },
+    {
+      "from": "v17",
+      "to": "v13"
+    },
+    {
+      "from": "v18",
+      "to": "v16"
+    },
+    {
+      "from": "v18",
+      "to": "v2"
+    },
+    {
+      "from": "v19",
+      "to": "v0"
+    },
+    {
+      "from": "v19",
+      "to": "v17"
+    },
+    {
+      "from": "v20",
+      "to": "v0"
+    },
+    {
+      "from": "v20",
+      "to": "v16"
+    },
+    {
+      "from": "v21",
+      "to": "v20"
+    },
+    {
+      "from": "v21",
+      "to": "v6"
+    },
+    {
+      "from": "v22",
+      "to": "v0"
+    },
+    {
+      "from": "v22",
+      "to": "v8"
+    },
+    {
+      "from": "v23",
+      "to": "v21"
+    },
+    {
+      "from": "v23",
+      "to": "v7"
+    },
+    {
+      "from": "v24",
+      "to": "v11"
+    },
+    {
+      "from": "v24",
+      "to": "v13"
+    },
+    {
+      "from": "v25",
+      "to": "v11"
+    },
+    {
+      "from": "v25",
+      "to": "v6"
+    },
+    {
+      "from": "v26",
+      "to": "v11"
+    },
+    {
+      "from": "v26",
+      "to": "v21"
+    },
+    {
+      "from": "v27",
+      "to": "v0"
+    },
+    {
+      "from": "v27",
+      "to": "v4"
+    },
+    {
+      "from": "v28",
+      "to": "v25"
+    },
+    {
+      "from": "v28",
+      "to": "v22"
+    },
+    {
+      "from": "v29",
+      "to": "v8"
+    },
+    {
+      "from": "v29",
+      "to": "v13"
+    },
+    {
+      "from": "v30",
+      "to": "v3"
+    },
+    {
+      "from": "v30",
+      "to": "v4"
+    },
+    {
+      "from": "v31",
+      "to": "v8"
+    },
+    {
+      "from": "v31",
+      "to": "v6"
+    },
+    {
+      "from": "v32",
+      "to": "v0"
+    },
+    {
+      "from": "v32",
+      "to": "v13"
+    },
+    {
+      "from": "v33",
+      "to": "v32"
+    },
+    {
+      "from": "v33",
+      "to": "v31"
+    },
+    {
+      "from": "v34",
+      "to": "v18"
+    },
+    {
+      "from": "v34",
+      "to": "v11"
+    },
+    {
+      "from": "v35",
+      "to": "v24"
+    },
+    {
+      "from": "v35",
+      "to": "v5"
+    },
+    {
+      "from": "v36",
+      "to": "v18"
+    },
+    {
+      "from": "v36",
+      "to": "v3"
+    },
+    {
+      "from": "v37",
+      "to": "v25"
+    },
+    {
+      "from": "v37",
+      "to": "v31"
+    },
+    {
+      "from": "v38",
+      "to": "v34"
+    },
+    {
+      "from": "v38",
+      "to": "v21"
+    },
+    {
+      "from": "v39",
+      "to": "v8"
+    },
+    {
+      "from": "v39",
+      "to": "v17"
+    }
+  ],
+  "metadata": {
+    "description": "Barab\u00e1si-Albert scale-free network",
+    "model": "barabasi_albert",
+    "n": 40,
+    "m": 2,
+    "vertices": 40,
+    "note": "Hub vertices should have high betweenness centrality"
+  }
+}
