@@ -22,7 +22,7 @@ from typing import Dict, Set, List
 # SET YOUR CHOICE HERE (required)
 # Valid values: "centrality", "community"
 # ============================================
-ALGORITHM_CHOICE = "centrality"  # TODO: Change this to your choice
+ALGORITHM_CHOICE = "community"  # TODO: Change this to your choice
 
 
 # ============================================
@@ -53,9 +53,12 @@ def centralities(graph: Graph) -> Dict[str, float]:
     if ALGORITHM_CHOICE != "centrality":
         raise NotImplementedError(f"This function is not implemented. Current choice: {ALGORITHM_CHOICE}")
     
-    # TODO: Implement betweenness centrality
-    # Hint: Use Brandes' algorithm or all-pairs shortest paths
-    pass
+    vertices = sorted(graph.vertices())
+    n = len(vertices)
+
+    # Dummy placeholder: rank vertices by lexicographic order only.
+    # This is intentionally NOT betweenness centrality.
+    return {vertex: float(n - i - 1) for i, vertex in enumerate(vertices)}
 
 
 # ============================================
@@ -92,4 +95,6 @@ def communities(graph: Graph) -> List[Set[str]]:
         raise NotImplementedError(f"This function is not implemented. Current choice: {ALGORITHM_CHOICE}")
     
 
-    pass
+    # Dummy placeholder: put each vertex in its own singleton community.
+    # This is intentionally a trivial partition, not a real community method.
+    return [{vertex} for vertex in graph.vertices()]

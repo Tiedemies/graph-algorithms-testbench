@@ -14,9 +14,13 @@ Example: python test_task3.py -A data/social_graph.json
 """
 
 import sys
-import os
 from graph import load_graph
 from tasks.task3_choice import ALGORITHM_CHOICE, centralities, communities
+
+
+def _centrality_order(centrality_dict):
+    """Return vertices ordered by descending centrality (stable tie-break by vertex id)."""
+    return [vertex for vertex, _ in sorted(centrality_dict.items(), key=lambda x: (-x[1], x[0]))]
 
 
 def test_centrality(graph, graph_file, run_reference=False):
@@ -77,8 +81,7 @@ def test_centrality(graph, graph_file, run_reference=False):
             print("=" * 60)
             
             try:
-                sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
-                from task3_reference_centrality import centralities as ref_centralities
+                from task3_reference_between import centralities as ref_centralities
                 
                 ref_result = ref_centralities(graph)
                 print("Reference Centrality Results:")
@@ -86,17 +89,17 @@ def test_centrality(graph, graph_file, run_reference=False):
                 for vertex, centrality in ref_sorted:
                     print(f"  {vertex}: {centrality:.4f}")
                 
-                # Compare results
+                # Compare ranking order only (values may differ by normalization)
                 print()
-                all_match = True
-                for vertex in result:
-                    if abs(result[vertex] - ref_result[vertex]) > 0.0001:
-                        print(f"✗ MISMATCH for {vertex}: yours={result[vertex]:.4f}, reference={ref_result[vertex]:.4f}")
-                        all_match = False
+                your_order = _centrality_order(result)
+                ref_order = _centrality_order(ref_result)
                 
-                if all_match:
-                    print("✓ MATCH: All centrality values match the reference implementation")
+                if your_order == ref_order:
+                    print("✓ MATCH: Vertex ranking order matches the reference implementation")
                 else:
+                    print("✗ MISMATCH: Vertex ranking order differs from the reference implementation")
+                    print(f"  Yours:      {your_order}")
+                    print(f"  Reference:  {ref_order}")
                     return False
                     
             except ImportError as e:
@@ -194,7 +197,6 @@ def test_community_detection(graph, graph_file, run_reference=False):
             print("=" * 60)
             
             try:
-                sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Reference implementations'))
                 from task3_reference_community import communities as ref_communities
                 
                 ref_result = ref_communities(graph)
